@@ -7,7 +7,7 @@ class FrappeAPI {
 
   // Function to verify login and store session cookie
   Future<Map<String, dynamic>> verifyLogin(String email, String password) async {
-    const String apiUrl = 'http://10.0.2.2:8002/api/method/login';
+    const String apiUrl = 'http://erpxpand.com/api/method/login';
 
     try {
       // print('Sending request to API...');

@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchClientSites() async {
     try {
-      final url = Uri.parse('http://10.0.2.2:8002/api/v2/method/in_house.api.get_all_client_sites');
+      final url = Uri.parse('http://erpxpand.com/api/v2/method/in_house.api.get_all_client_sites');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {

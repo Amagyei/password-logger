@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ClientSiteService {
-  final String _baseUrl = 'http://10.0.2.2:8002/api/v2/method/in_house.api.get_all_client_sites';
+  final String _baseUrl = 'http://erpxpand.com/api/v2/method/in_house.api.get_all_client_sites';
   
   Future<List<Map<String, String>>> fetchClientSiteDetails() async {
     try {
