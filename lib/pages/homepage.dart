@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchClientSites() async {
     try {
-      final url = Uri.parse('http://erpxpand.com/api/v2/method/in_house.api.get_all_client_sites');
+      final url = Uri.parse('https://erpxpand.com/api/v2/method/in_house.api.get_all_client_sites');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
         if (data.containsKey('data') && data['data'] is List) {
           setState(() {
             clientSites = List<Map<String, String>>.from(data['data'].map((site) => {
-                  'name': site['name'] as String,
-                  'customPassword': site['custom_password'] as String,
+                  'name': (site['name'] ?? 'Unnamed Site').toString(),
+                  'customPassword': (site['custom_password'] ?? 'No Password').toString(),
                 }));
           });
         } else {

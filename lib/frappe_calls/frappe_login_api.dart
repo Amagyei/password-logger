@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 
 class FrappeAPI {
   // Variable to store session cookie after login
   String? _sessionId;
 
-  // Function to verify login and store session cookie
   Future<Map<String, dynamic>> verifyLogin(String email, String password) async {
-    const String apiUrl = 'http://erpxpand.com/api/method/login';
+    const String apiUrl = 'https://erpxpand.com/api/method/login';
 
     try {
-      // print('Sending request to API...');
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: <String, String>{
@@ -20,15 +19,15 @@ class FrappeAPI {
           'usr': email,
           'pwd': password,
         },
-      );
+      ).timeout(Duration(seconds: 10));
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
 
 
       if (response.statusCode == 200) {
-        // Extract session cookies if login is successful
         _sessionId = response.headers['set-cookie'];
 
-        // Parse the JSON response
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         return {
           'status': 'success',
@@ -44,15 +43,26 @@ class FrappeAPI {
         };
       }
     } catch (error) {
-      // Handle network or parsing errors
+      String errorMessage;
+      if (error is http.ClientException) {
+        errorMessage = 'Client exception: ${error.message}';
+      } else if (error is SocketException) {
+        errorMessage = 'Network error: Unable to connect to the server';
+      } else if (error is FormatException) {
+        errorMessage = 'Format error: Invalid response format';
+      } else {
+        errorMessage = 'Unexpected error: $error';
+      }
+
+      // Return detailed error response
       return {
         'status': 'error',
-        'message': 'Error connecting to the server',
+        'message': errorMessage,
+        'errorDetails': error.toString(), // Additional error details
       };
     }
   }
 
-  // Function to get the session cookie for authenticated requests
   String? getSessionId() {
     return _sessionId;
   }
