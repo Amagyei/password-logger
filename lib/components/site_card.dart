@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_logger/pages/site_page.dart';
+import 'package:in_house/pages/site_page.dart';
 
 class CustomCard extends StatelessWidget {
   final String title;
@@ -21,6 +21,7 @@ class CustomCard extends StatelessWidget {
         );
       },
       child: Card(
+        color: Color(0xFF552834),
         elevation: 4.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -33,7 +34,10 @@ class CustomCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
+
+            
           ),
         ),
       ),

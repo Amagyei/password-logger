@@ -9,31 +9,43 @@ class FrappeAPI {
   Future<Map<String, dynamic>> verifyLogin(String email, String password) async {
     const String apiUrl = 'https://erpxpand.com/api/method/login';
 
+    // Encode credentials as base64 (username:password format)
+    final String basicAuth = 'Basic ' + base64Encode(utf8.encode('303236ac9deb887:9b1bebb58a59e08'));
+
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: <String, String>{
+          // 'Authorization': basicAuth,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: {
           'usr': email,
           'pwd': password,
         },
-      ).timeout(Duration(seconds: 10));
+      ).timeout(Duration(seconds: 10), onTimeout: () {
+        throw SocketException('The request timed out.');
+      });
       print('Response status code: ${response.statusCode}');
       print('Response body: ${response.body}');
 
 
 
       if (response.statusCode == 200) {
-        _sessionId = response.headers['set-cookie'];
-
-        final Map<String, dynamic> responseData = jsonDecode(response.body);
-        return {
-          'status': 'success',
-          'message': 'Login successful',
-          'data': responseData,
-        };
+        try {
+          final Map<String, dynamic> responseData = jsonDecode(response.body);
+          return {
+            'status': 'success',
+            'message': 'Login successful',
+            'data': responseData,
+          };
+        } catch (e) {
+          return {
+            'status': 'error',
+            'message': 'Invalid JSON response from server',
+            'errorDetails': e.toString(),
+          };
+        }
       } else {
         // Handle login failure
         final Map<String, dynamic> errorResponse = jsonDecode(response.body);

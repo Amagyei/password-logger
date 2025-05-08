@@ -1,0 +1,22 @@
+flavors:
+  development:
+    app:
+      name: "in_house"
+      package_name: "com.example.in_house.dev"
+      android:
+        applicationId: "com.example.in_house.dev"
+      ios:
+        bundleId: "com.example.in_house.dev"
+  production:
+    app:
+      name: "In House"
+      package_name: "com.example.in_house"
+      android:
+        applicationId: "com.example.in_house"
+      ios:
+        bundleId: "com.example.in_house"
+
+android:
+  build_types: ["debug", "release"]
+ios:
+  build_configuration: ["Debug", "Release"]

@@ -1,4 +1,4 @@
-package com.example.password_logger
+package com.example.in_house
 
 import io.flutter.embedding.android.FlutterActivity
 

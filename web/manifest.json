@@ -1,6 +1,6 @@
 {
-    "name": "password_logger",
-    "short_name": "password_logger",
+    "name": "in_house",
+    "short_name": "in_house",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

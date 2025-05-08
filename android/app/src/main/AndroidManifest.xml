@@ -1,13 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.password_logger">
+    package="com.example.in_house">
 
     <!-- Internet permission to allow network access -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="password_logger"
+        android:label="In House"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/any">
         <activity
             android:name=".MainActivity"
             android:exported="true"
